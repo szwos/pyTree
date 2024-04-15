@@ -13,13 +13,12 @@ class MultipleRootError(Exception):
 class DuplicatedNodeIdError(Exception):
     pass
 
-#name changes from https://github.com/guotsuan/pyTree/ (bo zapomne i sie pogubie xd)
+#name changes from https://github.com/guotsuan/pyTree/ 
 # nid -> node_id
 
-# TODO: rename to DrawableObjectTree, bcs this tree itself is not Drawable and it sounds like it
 class Tree():
 
-    (ROOT, DEPTH, WIDTH) = range(3) # TODO: i don't like this, seems elegant but also kind of weird
+    (ROOT, DEPTH, WIDTH) = range(3)
 
     def __init__(self):
         self.nodes = {}
@@ -59,7 +58,7 @@ class Tree():
         UPDATE: the @cmp @key @reverse is present to sort node at each level.
         UPDATE: it
         """
-        node_id = self.root if (node_id is None) else uuid.UUID()
+        node_id = self.root if (node_id is None) else uuid.uuid1()
         filter = (lambda x: True) if (filter is None) else filter
 
         if filter(self[node_id]):
@@ -249,4 +248,4 @@ class Tree():
         if owner_id is None:
             return
         else:
-            self[owner_id].update_front_pointer(target_id, mode)
+            self[owner_id.uuid].update_front_pointer(target_id, mode)
